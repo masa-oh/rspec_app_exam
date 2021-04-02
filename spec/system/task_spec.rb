@@ -3,11 +3,11 @@ include ApplicationHelper
 
 RSpec.describe 'Task', type: :system do
   describe 'Task一覧' do
+    let(:project) { create(:project) }
+    let!(:task) { create(:task, project: project) }
+
     context '正常系' do
       it '一覧ページにアクセスした場合、Taskが表示されること' do
-        # TODO: ローカル変数ではなく let を使用してください
-        project = FactoryBot.create(:project)
-        task = FactoryBot.create(:task, project_id: project.id)
         visit project_tasks_path(project)
         expect(page).to have_content task.title
         expect(Task.count).to eq 1
@@ -15,8 +15,6 @@ RSpec.describe 'Task', type: :system do
       end
 
       it 'Project詳細からTask一覧ページにアクセスした場合、Taskが表示されること' do
-        project = FactoryBot.create(:project)
-        task = FactoryBot.create(:task, project_id: project.id)
         visit project_path(project)
         click_link 'View Todos'
         switch_to_window(windows.last)
