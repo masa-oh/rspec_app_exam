@@ -92,10 +92,11 @@ RSpec.describe 'Task', type: :system do
   end
 
   describe 'Task削除' do
+    let(:project) { create(:project) }
+    let!(:task) { create(:task, project: project) }
+
     context '正常系' do
       it 'Taskが削除されること' do
-        project = FactoryBot.create(:project)
-        task = FactoryBot.create(:task, project_id: project.id)
         visit project_tasks_path(project)
         click_link 'Destroy'
         page.driver.browser.switch_to.alert.accept
