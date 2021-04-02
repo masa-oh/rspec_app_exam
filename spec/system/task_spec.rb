@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Task', type: :system do
+  let(:project) { create(:project) }
+  let(:task) { create(:task) }
+
   describe 'Task一覧' do
-    let(:project) { create(:project) }
     let!(:task) { create(:task) }
 
     context '正常系' do
@@ -25,8 +27,6 @@ RSpec.describe 'Task', type: :system do
   end
 
   describe 'Task新規作成' do
-    let(:project) { create(:project) }
-
     context '正常系' do
       it 'Taskが新規作成されること' do
         visit project_tasks_path(project)
@@ -41,9 +41,6 @@ RSpec.describe 'Task', type: :system do
   end
 
   describe 'Task詳細' do
-    let(:project) { create(:project) }
-    let(:task) { create(:task) }
-
     context '正常系' do
       it 'Taskが表示されること' do
         visit project_task_path(project, task)
@@ -56,8 +53,6 @@ RSpec.describe 'Task', type: :system do
   end
 
   describe 'Task編集' do
-    let(:project) { create(:project) }
-    let(:task) { create(:task) }
     let(:done_task) { create(:task, :done) }
 
     context '正常系' do
@@ -91,7 +86,6 @@ RSpec.describe 'Task', type: :system do
   end
 
   describe 'Task削除' do
-    let(:project) { create(:project) }
     let!(:task) { create(:task) }
 
     context '正常系' do
